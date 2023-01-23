@@ -8,13 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.engine.AttributeName;
 
 import jp.co.planaria.sample.bean.Brand;
 import jp.co.planaria.sample.bean.Motorcycle;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class MotosController {
+
 
   @RequestMapping("/hello")
   public String hello(@RequestParam(name = "name") String name, Model model) {
@@ -39,6 +41,8 @@ public class MotosController {
 
     model.addAttribute("brands", brands);
     model.addAttribute("motos", motos);
+
+    log.info("motos: {}", motos); // ログ出力
 
     return "moto_list";
   }
