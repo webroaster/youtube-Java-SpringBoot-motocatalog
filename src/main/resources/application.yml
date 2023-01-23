@@ -1,0 +1,12 @@
+logging:
+  level:
+    root: info
+
+  # ファイル出力
+  file:
+    name: app.log
+
+  # ログローテーション
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
