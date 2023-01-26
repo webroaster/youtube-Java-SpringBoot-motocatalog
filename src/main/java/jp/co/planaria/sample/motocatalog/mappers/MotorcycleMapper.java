@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchCondition;
+import jp.co.planaria.sample.motocatalog.beans.SearchForm;
 
 @Mapper
 public interface MotorcycleMapper {
@@ -15,7 +15,7 @@ public interface MotorcycleMapper {
    * @param condition 検索条件
    * @return バイク情報リスト
    */
-  public List<Motorcycle> selectByCondition(SearchCondition condition);
+  public List<Motorcycle> selectByCondition(SearchForm condition);
   /*
    * バイク情報を主キーで検索
    * @param motoNo バイク番号
