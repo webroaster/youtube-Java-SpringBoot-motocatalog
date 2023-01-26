@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
-import jp.co.planaria.sample.motocatalog.beans.SearchCondition;
+import jp.co.planaria.sample.motocatalog.beans.SearchForm;
 import jp.co.planaria.sample.motocatalog.services.MotosService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,22 +30,54 @@ public class MotosController {
     return "test";
   }
 
+  /**
+   * バイク一覧を検索する
+   * @param searchForm 検索条件
+   * @param model Model
+   * @return 遷移先
+   */
   @GetMapping("/motos")
-  public String motos(Model model) {
+  public String motos(SearchForm searchForm, Model model) {
+    log.info("検索条件：{}", searchForm);
+
     // ブランド
-    List<Brand> brands = new ArrayList<>();
-    brands = service.getBrands();
+    this.setBrands(model);
 
     // // バイク
     List<Motorcycle> motos = new ArrayList<>();
-    SearchCondition condition = new SearchCondition();
-    motos = service.getMotos(condition);
+    motos = service.getMotos(searchForm);
 
-    model.addAttribute("brands", brands);
     model.addAttribute("motos", motos);
 
     log.debug("motos: {}", motos); // ログ出力
 
     return "moto_list";
+  }
+
+  /**
+   * 検索条件をクリアする
+   * @param searchForm 検索条件
+   * @param model Model
+   * @return 遷移先
+   */
+  @GetMapping("/motos/reset")
+  public String reset(SearchForm searchForm, Model model) {
+    // ブランドリストを準備
+    this.setBrands(model);
+
+    // 検索条件のクリア
+    searchForm = new SearchForm();
+    return "moto_list";
+  }
+
+  /**
+   * ブランドリストをModelにセットする
+   * @return Model
+   */
+  private void setBrands(Model model) {
+    // ブランド
+    List<Brand> brands = new ArrayList<>();
+    brands = service.getBrands();
+    model.addAttribute("brands", brands);
   }
 }
