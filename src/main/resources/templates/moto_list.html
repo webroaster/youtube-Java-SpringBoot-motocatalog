@@ -151,7 +151,9 @@
               <tr th:each="moto : ${motos}" th:object="${moto}">
                 <th scope="row" th:text="*{motoNo}"></th>
                 <td th:text="*{brand.brandName}"></td>
-                <td th:text="*{motoName}"></td>
+                <td>
+                  <a th:href="@{/motos/} + *{motoNo}" th:text="*{motoName}"></a>
+                </td>
                 <td th:text="*{cooling} + *{cylinder} + '気筒'"></td>
                 <td
                   th:text="*{#numbers.formatInteger(price,3,'COMMA')}"
