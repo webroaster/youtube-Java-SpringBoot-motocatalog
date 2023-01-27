@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
@@ -37,10 +38,16 @@ public class MotosService {
    * @param moto バイク情報
    * @return 更新件数
    */
+  @Transactional
   public int save(Motorcycle moto) {
     int cnt = motorcycleMapper.update(moto);
+    // 更新できなかった場合、更新されたか削除されたため楽観排他エラー
     if (cnt == 0) {
       throw new OptimisticLockingFailureException("楽観的排他制御エラー");
+    }
+    // 2件以上更新は想定外(SQLの不備の可能性)
+    if (cnt > 1) {
+      throw new RuntimeException("2件以上更新されました。");
     }
     return cnt;
   }
