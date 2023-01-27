@@ -35,12 +35,20 @@
       </div>
     </nav>
 
-    <div th:text="${#temporals.format(datetime, 'yyyy/MM/dd HH:mm:ss')}"></div>
-
     <div class="container">
       <form th:action="@{/motos}" method="get">
-        <div class="row">
-          <div class="col">
+        <div class="row justify-content-end mb-3">
+          <div class="col-2">
+            <div
+              th:text="${#temporals.format(datetime, 'yyyy/MM/dd HH:mm')}"
+              class="text-end"
+            ></div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="row justify-content-around">
+          <div class="col-3">
             <div class="mb-3">
               <label
                 for="brand"
@@ -62,7 +70,7 @@
               </select>
             </div>
           </div>
-          <div class="col">
+          <div class="col-5">
             <div class="mb-3">
               <label
                 for="keyword"
@@ -107,12 +115,36 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col" th:text="#{label.motoNo}"></th>
-                <th scope="col" th:text="#{label.brand}"></th>
-                <th scope="col" th:text="#{label.motoName}"></th>
-                <th scope="col" th:text="#{label.engine}"></th>
-                <th scope="col" th:text="#{label.price}"></th>
-                <th scope="col" th:text="#{label.comment}"></th>
+                <th
+                  scope="col"
+                  th:text="#{label.motoNo}"
+                  class="text-center"
+                ></th>
+                <th
+                  scope="col"
+                  th:text="#{label.brand}"
+                  class="text-center"
+                ></th>
+                <th
+                  scope="col"
+                  th:text="#{label.motoName}"
+                  class="text-center"
+                ></th>
+                <th
+                  scope="col"
+                  th:text="#{label.engine}"
+                  class="text-center"
+                ></th>
+                <th
+                  scope="col"
+                  th:text="#{label.price}"
+                  class="text-center"
+                ></th>
+                <th
+                  scope="col"
+                  th:text="#{label.comment}"
+                  class="text-center"
+                ></th>
               </tr>
             </thead>
             <tbody>
@@ -121,7 +153,10 @@
                 <td th:text="*{brand.brandName}"></td>
                 <td th:text="*{motoName}"></td>
                 <td th:text="*{cooling} + *{cylinder} + '気筒'"></td>
-                <td th:text="*{#numbers.formatInteger(price,3,'COMMA')}"></td>
+                <td
+                  th:text="*{#numbers.formatInteger(price,3,'COMMA')}"
+                  class="text-end"
+                ></td>
                 <td th:text="*{comment}"></td>
               </tr>
             </tbody>
