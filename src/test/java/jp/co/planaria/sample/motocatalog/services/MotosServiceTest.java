@@ -240,5 +240,17 @@ public class MotosServiceTest {
       assertThat(after.getUpdDt()).isNull();
     }
 
+   // バイク情報削除
+    @DisplayName("バイク情報削除")
+    @Test
+    @Transactional
+    @Rollback
+    void test013() {
+      Motorcycle before = service.getMotos(1);
 
+      service.delete(before); // 更新（保存）
+
+      Motorcycle after = service.getMotos(1); // 変更後のバイク情報
+      assertThat(after).isNull();
+    }
 }
