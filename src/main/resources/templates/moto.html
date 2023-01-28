@@ -50,7 +50,7 @@
         </div>
         <!-- /.row -->
 
-        <div class="row">
+        <div class="row" th:if="${motoForm.motoNo}">
           <div class="col">
             <label for="" class="form-label">番号</label>
             <span th:text="*{motoNo}"></span>
@@ -104,7 +104,7 @@
 
         <div class="row mb-2">
           <div class="col">
-            <label for="cylinder" class="form-label">エンジン</label>
+            <label for="cylinder" class="form-label">シリンダー</label>
             <input
               th:field="*{cylinder}"
               type="text"
@@ -151,7 +151,21 @@
 
         <div class="row mt-3">
           <div class="col text-end">
-            <button class="btn btn-primary" type="submit">保存</button>
+            <button
+              class="btn btn-primary"
+              type="submit"
+              th:formaction="@{/motos/save}"
+            >
+              保存
+            </button>
+            <button
+              class="btn btn-danger"
+              type="submit"
+              th:formaction="@{/motos/delete}"
+              th:if="${motoForm.motoNo}"
+            >
+              削除
+            </button>
           </div>
           <!-- /.col-1 -->
         </div>
