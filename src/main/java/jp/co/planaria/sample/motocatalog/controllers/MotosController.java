@@ -149,7 +149,7 @@ public class MotosController {
   }
 
   /**
-   * バイク情報を保存
+   * バイク情報を削除
    * @param motoForm 入力内容
    * @param result BindingResult
    * @param model Model
