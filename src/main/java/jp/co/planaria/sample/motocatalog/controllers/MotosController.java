@@ -127,9 +127,17 @@ public class MotosController {
    * @return 遷移先
    */
   @PostMapping("/motos/save")
-  public String save(@ModelAttribute MotoForm motoForm, BindingResult result, Model model) {
+  public String save(@Validated MotoForm motoForm, BindingResult result, Model model) {
+    this.setBrands(model);
+
     try {
       log.info("motoForm:{}", motoForm);
+
+      if(result.hasErrors()) {
+        // 入力チェックエラーがある場合
+        return "moto";
+      }
+
       Motorcycle moto = new Motorcycle();
       // 入力内容を詰め替える
       BeanUtils.copyProperties(motoForm, moto);
@@ -142,7 +150,6 @@ public class MotosController {
       return "redirect:/motos";
 
     } catch(OptimisticLockingFailureException e) {
-      this.setBrands(model);
       result.addError(new ObjectError("global", e.getMessage()));
       return "moto";
     }

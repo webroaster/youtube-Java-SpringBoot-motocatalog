@@ -42,7 +42,7 @@
             <div
               class="alert alert-danger"
               role="alert"
-              th:each="err : ${#fields.errors('*')}"
+              th:each="err : ${#fields.errors('global')}"
               th:text="${err}"
             ></div>
           </div>
@@ -63,12 +63,15 @@
 
         <div class="row mb-2">
           <div class="col">
-            <label for="brand" class="form-label">メーカー</label>
+            <label for="brand" class="form-label"
+              >メーカー<span class="badge bg-danger">必須</span></label
+            >
             <select
               th:field="*{brand.brandId}"
               class="form-select"
               aria-label="Default select example"
               id="brand"
+              th:errorClass="is-invalid"
             >
               <option value=""></option>
               <option
@@ -77,26 +80,35 @@
                 th:value="${brand.brandId}"
               ></option>
             </select>
+            <div th:errors="*{brand.brandId}" class="invalid-feedback"></div>
           </div>
           <div class="col">
-            <label for="motoName" class="form-label">車名</label>
+            <label for="motoName" class="form-label"
+              >車名<span class="badge bg-danger">必須</span></label
+            >
             <input
               th:field="*{motoName}"
               type="text"
               class="form-control"
               id="motoName"
               placeholder=""
+              th:errorClass="is-invalid"
+              maxlength="50"
             />
+            <div th:errors="*{motoName}" class="invalid-feedback"></div>
           </div>
           <div class="col">
             <label for="seatHeight" class="form-label">シート高</label>
             <input
               th:field="*{seatHeight}"
-              type="text"
+              type="number"
               class="form-control"
               id="seatHeight"
               placeholder=""
+              th:errorClass="is-invalid"
+              maxlength="4"
             />
+            <div th:errors="*{seatHeight}" class="invalid-feedback"></div>
           </div>
           <!-- /.col -->
         </div>
@@ -107,11 +119,14 @@
             <label for="cylinder" class="form-label">シリンダー</label>
             <input
               th:field="*{cylinder}"
-              type="text"
+              type="number"
               class="form-control"
               id="cylinder"
               placeholder=""
+              th:errorClass="is-invalid"
+              maxlength="1"
             />
+            <div th:errors="*{cylinder}" class="invalid-feedback"></div>
           </div>
           <div class="col">
             <label for="cooling" class="form-label">冷却方式</label>
@@ -121,7 +136,10 @@
               class="form-control"
               id="cooling"
               placeholder=""
+              th:errorClass="is-invalid"
+              maxlength="10"
             />
+            <div th:errors="*{cooling}" class="invalid-feedback"></div>
           </div>
           <div class="col">
             <label for="price" class="form-label">価格</label>
@@ -131,7 +149,10 @@
               class="form-control"
               id="price"
               placeholder=""
+              th:errorClass="is-invalid"
+              maxlength="7"
             />
+            <div th:errors="*{price}" class="invalid-feedback"></div>
           </div>
         </div>
         <!-- /.row -->
@@ -144,7 +165,10 @@
               class="form-control"
               id="comment"
               rows="3"
+              th:errorClass="is-invalid"
+              maxlength="200"
             ></textarea>
+            <div th:errors="*{comment}" class="invalid-feedback"></div>
           </div>
         </div>
         <!-- /.row -->
