@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import jp.co.planaria.sample.motocatalog.beans.Brand;
 import jp.co.planaria.sample.motocatalog.beans.Motorcycle;
 import jp.co.planaria.sample.motocatalog.beans.SearchForm;
 
@@ -200,4 +201,44 @@ public class MotosServiceTest {
       assertThat(after.getMotoName()).isEqualTo("motomoto");
       assertThat(after.getVersion()).isEqualTo(before.getVersion() + 1);
     }
+
+   // バイク情報登録
+    @DisplayName("バイク情報登録")
+    @Test
+    @Transactional
+    @Rollback
+    void test012() {
+      Motorcycle before = new Motorcycle();
+      // バイク名
+        before.setMotoName("もともと");
+      // シート高
+        before.setSeatHeight(10);
+      // シリンダー
+        before.setCylinder(9);
+      // 冷却
+        before.setCooling("必殺技");
+      // 価格
+        before.setPrice(1000);
+      // コメント
+        before.setComment("登録テスト");
+      // ブランド
+        before.setBrand(new Brand("01", "HONDA"));
+
+      service.save(before); // 登録（保存）
+
+      Motorcycle after = service.getMotos(10); // 変更後のバイク情報
+
+      assertThat(after.getMotoNo()).isEqualTo(10);
+      assertThat(after.getMotoName()).isEqualTo("もともと");
+      assertThat(after.getSeatHeight()).isEqualTo(10);
+      assertThat(after.getCylinder()).isEqualTo(9);
+      assertThat(after.getCooling()).isEqualTo("必殺技");
+      assertThat(after.getPrice()).isEqualTo(1000);
+      assertThat(after.getComment()).isEqualTo("登録テスト");
+      assertThat(after.getBrand().getBrandId()).isEqualTo("01");
+      assertThat(after.getInsDt().format(dtFormatter)).isEqualTo(LocalDateTime.now().format(dtFormatter));
+      assertThat(after.getUpdDt()).isNull();
+    }
+
+
 }
