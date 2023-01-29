@@ -32,6 +32,9 @@
     <nav class="navbar navbar-dark bg-dark mb-3">
       <div class="container-fluid">
         <a class="navbar-brand" href="#" th:text="#{page.search}"></a>
+        <form th:action="@{/logout}" method="post">
+          <button class="btn btn-secondary" type="submit">ログアウト</button>
+        </form>
       </div>
     </nav>
 
